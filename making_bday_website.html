@@ -1,0 +1,703 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#120f1f" />
+  <title>Happy Birthday, Aditi</title>
+  <style>
+    :root {
+      --bg: #0e1020;
+      --bg-2: #171a33;
+      --card: rgba(16, 18, 36, 0.72);
+      --card-strong: rgba(255, 255, 255, 0.09);
+      --text: #f7f3ff;
+      --muted: rgba(247, 243, 255, 0.74);
+      --accent: #ff7aa8;
+      --accent-2: #ffd166;
+      --accent-3: #8be9fd;
+      --shadow: 0 24px 80px rgba(0, 0, 0, 0.4);
+      --radius-xl: 30px;
+      --radius-lg: 22px;
+      --radius-md: 16px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      color: var(--text);
+      font-family: "Trebuchet MS", "Segoe UI", sans-serif;
+      background:
+        radial-gradient(circle at 20% 20%, rgba(255, 122, 168, 0.25), transparent 26%),
+        radial-gradient(circle at 80% 15%, rgba(139, 233, 253, 0.18), transparent 24%),
+        radial-gradient(circle at 65% 78%, rgba(255, 209, 102, 0.13), transparent 25%),
+        linear-gradient(135deg, #090b14 0%, #12162a 45%, #1b1030 100%);
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      opacity: 0.24;
+      background-image:
+        radial-gradient(rgba(255, 255, 255, 0.15) 1px, transparent 1px),
+        radial-gradient(rgba(255, 255, 255, 0.09) 1px, transparent 1px);
+      background-position: 0 0, 14px 14px;
+      background-size: 28px 28px;
+      mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.85), transparent 95%);
+    }
+
+    .wrap {
+      position: relative;
+      min-height: 100vh;
+      display: grid;
+      place-items: center;
+      padding: 24px;
+    }
+
+    .ambient {
+      position: absolute;
+      inset: -10% -10% auto auto;
+      width: 42vw;
+      aspect-ratio: 1;
+      border-radius: 50%;
+      filter: blur(20px);
+      background: radial-gradient(circle, rgba(255, 122, 168, 0.36), rgba(255, 122, 168, 0.05) 58%, transparent 72%);
+      animation: drift 12s ease-in-out infinite alternate;
+    }
+
+    .ambient.two {
+      inset: auto auto -12% -8%;
+      width: 34vw;
+      background: radial-gradient(circle, rgba(139, 233, 253, 0.2), rgba(139, 233, 253, 0.03) 58%, transparent 72%);
+      animation-duration: 14s;
+    }
+
+    .card {
+      position: relative;
+      width: min(1100px, 100%);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: calc(var(--radius-xl) + 8px);
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.12), rgba(255, 255, 255, 0.05)) var(--card);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(18px);
+      overflow: hidden;
+      isolation: isolate;
+    }
+
+    .card::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.12), transparent 30%, transparent 70%, rgba(255, 255, 255, 0.08));
+      pointer-events: none;
+    }
+
+    .hero {
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 28px;
+      padding: 34px;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 16px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      color: var(--muted);
+      font-size: 0.88rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .eyebrow i {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: var(--accent-2);
+      box-shadow: 0 0 18px rgba(255, 209, 102, 0.9);
+    }
+
+    h1 {
+      margin: 18px 0 14px;
+      font-family: "Palatino Linotype", "Book Antiqua", Palatino, Georgia, serif;
+      font-size: clamp(2.8rem, 7vw, 5.5rem);
+      line-height: 0.96;
+      letter-spacing: -0.04em;
+    }
+
+    h1 .accent {
+      display: inline-block;
+      background: linear-gradient(90deg, #ffffff, #ffd6e5 35%, #ff9ec0 70%, #ffd166);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      text-shadow: 0 10px 40px rgba(255, 122, 168, 0.1);
+    }
+
+    .lead {
+      max-width: 56ch;
+      color: var(--muted);
+      font-size: 1.05rem;
+      line-height: 1.8;
+      margin: 0 0 24px;
+    }
+
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      margin-top: 18px;
+    }
+
+    .button {
+      appearance: none;
+      border: 0;
+      cursor: pointer;
+      font: inherit;
+      padding: 14px 20px;
+      border-radius: 999px;
+      transition: transform 180ms ease, box-shadow 180ms ease, background 180ms ease;
+    }
+
+    .button:hover {
+      transform: translateY(-2px);
+    }
+
+    .button.primary {
+      color: #160f24;
+      background: linear-gradient(135deg, #ffd166, #ff8bb1);
+      box-shadow: 0 18px 30px rgba(255, 122, 168, 0.25);
+      font-weight: 700;
+    }
+
+    .button.secondary {
+      color: var(--text);
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+    }
+
+    .panel {
+      display: grid;
+      gap: 16px;
+      align-content: start;
+    }
+
+    .glass {
+      padding: 22px;
+      border-radius: var(--radius-lg);
+      background: rgba(255, 255, 255, 0.07);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .countdown {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+    }
+
+    .time {
+      text-align: center;
+      padding: 16px 10px;
+      border-radius: 18px;
+      background: rgba(13, 16, 31, 0.7);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .time strong {
+      display: block;
+      font-size: clamp(1.5rem, 4vw, 2.1rem);
+      line-height: 1;
+      margin-bottom: 6px;
+    }
+
+    .time span {
+      font-size: 0.8rem;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+    }
+
+    .date-note {
+      margin-top: 10px;
+      color: var(--muted);
+      font-size: 0.95rem;
+      line-height: 1.7;
+    }
+
+    .signal {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      padding: 18px 20px;
+      border-radius: var(--radius-md);
+      background: linear-gradient(135deg, rgba(255, 122, 168, 0.16), rgba(255, 209, 102, 0.1));
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .signal .dot {
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      background: var(--accent);
+      box-shadow: 0 0 22px rgba(255, 122, 168, 0.8);
+      flex: 0 0 auto;
+    }
+
+    .signal b {
+      display: block;
+      margin-bottom: 3px;
+    }
+
+    .signal p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 0.95rem;
+      line-height: 1.6;
+    }
+
+    .letter {
+      margin: 0 34px 34px;
+      padding: 24px;
+      border-radius: var(--radius-xl);
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.05));
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      display: grid;
+      gap: 18px;
+    }
+
+    .letter-header {
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      align-items: center;
+    }
+
+    .letter-header h2 {
+      margin: 0;
+      font-family: "Palatino Linotype", "Book Antiqua", Palatino, Georgia, serif;
+      font-size: clamp(1.5rem, 3.2vw, 2.1rem);
+    }
+
+    .badge {
+      padding: 10px 14px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.08);
+      color: var(--muted);
+      font-size: 0.9rem;
+      white-space: nowrap;
+    }
+
+    .letter-body {
+      color: var(--muted);
+      line-height: 1.9;
+      font-size: 1.02rem;
+      max-width: 78ch;
+    }
+
+    .reasons {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+
+    .reason {
+      padding: 18px;
+      border-radius: 20px;
+      background: rgba(10, 12, 24, 0.65);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      min-height: 160px;
+    }
+
+    .reason .icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 16px;
+      display: grid;
+      place-items: center;
+      margin-bottom: 14px;
+      background: linear-gradient(135deg, rgba(255, 122, 168, 0.22), rgba(139, 233, 253, 0.16));
+      font-size: 1.4rem;
+    }
+
+    .reason h3 {
+      margin: 0 0 10px;
+      font-size: 1rem;
+    }
+
+    .reason p {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.7;
+      font-size: 0.94rem;
+    }
+
+    .footer {
+      padding: 0 34px 34px;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: 14px;
+      color: rgba(247, 243, 255, 0.62);
+      font-size: 0.92rem;
+    }
+
+    .sparkles {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      overflow: hidden;
+      z-index: -1;
+    }
+
+    .sparkle {
+      position: absolute;
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: white;
+      filter: blur(0.4px);
+      animation: floatUp linear infinite;
+      opacity: 0.7;
+    }
+
+    .message {
+      min-height: 1.5em;
+      color: #ffd166;
+      font-weight: 700;
+      letter-spacing: 0.03em;
+    }
+
+    canvas {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 20;
+    }
+
+    .hidden-note {
+      display: none;
+    }
+
+    .show-note .hidden-note {
+      display: inline;
+    }
+
+    @keyframes drift {
+      from { transform: translate3d(0, 0, 0) scale(1); }
+      to { transform: translate3d(-4%, 4%, 0) scale(1.08); }
+    }
+
+    @keyframes floatUp {
+      from {
+        transform: translateY(110vh) scale(0.7);
+        opacity: 0;
+      }
+      12% { opacity: 1; }
+      to {
+        transform: translateY(-12vh) scale(1.2);
+        opacity: 0;
+      }
+    }
+
+    @media (max-width: 900px) {
+      .hero {
+        grid-template-columns: 1fr;
+        padding: 24px;
+      }
+
+      .reasons {
+        grid-template-columns: 1fr;
+      }
+
+      .letter, .footer {
+        margin-left: 24px;
+        margin-right: 24px;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .wrap {
+        padding: 14px;
+      }
+
+      .card {
+        border-radius: 24px;
+      }
+
+      .countdown {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .letter-header {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      h1 {
+        font-size: clamp(2.4rem, 13vw, 4.2rem);
+      }
+    }
+  </style>
+</head>
+<body>
+  <canvas id="confetti"></canvas>
+  <div class="wrap">
+    <div class="ambient"></div>
+    <div class="ambient two"></div>
+
+    <main class="card">
+      <div class="sparkles" aria-hidden="true" id="sparkles"></div>
+
+      <section class="hero">
+        <div>
+          <div class="eyebrow"><i></i> 29 August 2026</div>
+          <h1>Happy Birthday, <span class="accent">Aditi</span></h1>
+          <p class="lead">
+            Even with miles between us, today still belongs to you. I made this page to hold a little of my heart,
+            a little of my hope, and a lot of love for Aditi, the girl who makes distance feel smaller.
+          </p>
+
+          <div class="actions">
+            <button class="button primary" id="surpriseBtn">Open your surprise</button>
+            <button class="button secondary" id="confettiBtn">Send me confetti</button>
+          </div>
+
+          <p class="message" id="statusMessage"></p>
+        </div>
+
+        <div class="panel">
+          <div class="glass">
+            <div class="countdown" aria-label="Countdown to birthday">
+              <div class="time"><strong id="days">00</strong><span>Days</span></div>
+              <div class="time"><strong id="hours">00</strong><span>Hours</span></div>
+              <div class="time"><strong id="minutes">00</strong><span>Minutes</span></div>
+              <div class="time"><strong id="seconds">00</strong><span>Seconds</span></div>
+            </div>
+            <p class="date-note" id="countdownCopy">
+              Counting down to the moment your birthday begins. This little space will turn into a celebration the second the clock hits midnight.
+            </p>
+          </div>
+
+          <div class="signal">
+            <div class="dot"></div>
+            <div>
+              <b>Distance does not cancel devotion</b>
+              <p>Every late-night call, every message, every tiny reminder that you are loved is part of this gift.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="letter" id="letter">
+        <div class="letter-header">
+          <h2>A Birthday Letter</h2>
+          <div class="badge">Tap the button above to reveal more</div>
+        </div>
+        <div class="letter-body">
+          <p>
+            I hope this year gives you gentler mornings, louder laughter, and moments that feel so full they stay with you.
+            I hope you remember how deeply you are cherished, especially on the days when the world feels heavy or the distance feels loud.
+          </p>
+          <p>
+            You are the kind of person who makes ordinary things feel special. Your smile, your heart, and the way you exist in my life
+            are all beautiful in ways I never want to take for granted. If I could wrap up all the warmth I feel for you, I would send it
+            across the miles and place it right beside you today.
+          </p>
+          <p class="hidden-note">
+            Here’s the secret part: I am proud of you, grateful for you, and always rooting for you. Happy birthday, Aditi.
+            May 29 August 2026 be the beginning of a sweeter, softer, brighter chapter.
+          </p>
+        </div>
+      </section>
+
+      <section class="letter" style="padding-top: 0;">
+        <div class="letter-header">
+          <h2>Three Reasons I Love You</h2>
+          <div class="badge">Simple. Honest. Yours.</div>
+        </div>
+        <div class="reasons">
+          <article class="reason">
+            <div class="icon">♡</div>
+            <h3>Your presence feels like home</h3>
+            <p>Even from far away, you bring calm, comfort, and a familiar kind of warmth that stays with me all day.</p>
+          </article>
+          <article class="reason">
+            <div class="icon">✦</div>
+            <h3>You make life brighter</h3>
+            <p>Your laugh, your messages, and the little things you do have a way of turning dull moments into something soft and memorable.</p>
+          </article>
+          <article class="reason">
+            <div class="icon">☾</div>
+            <h3>You are worth the distance</h3>
+            <p>No miles can lessen what you mean to me. If anything, they make this love feel more intentional and real.</p>
+          </article>
+        </div>
+      </section>
+
+      <div class="footer">
+        <span>Made with love for Aditi’s long-distance birthday.</span>
+        <span>Open this on 29 August 2026 and let it surprise Aditi.</span>
+      </div>
+    </main>
+  </div>
+
+  <script>
+    const birthday = new Date("2026-08-29T00:00:00");
+    const daysEl = document.getElementById("days");
+    const hoursEl = document.getElementById("hours");
+    const minutesEl = document.getElementById("minutes");
+    const secondsEl = document.getElementById("seconds");
+    const statusMessage = document.getElementById("statusMessage");
+    const countdownCopy = document.getElementById("countdownCopy");
+    const letter = document.getElementById("letter");
+    const surpriseBtn = document.getElementById("surpriseBtn");
+    const confettiBtn = document.getElementById("confettiBtn");
+    const sparkleLayer = document.getElementById("sparkles");
+    const canvas = document.getElementById("confetti");
+    const ctx = canvas.getContext("2d");
+
+    const particles = [];
+
+    function resizeCanvas() {
+      canvas.width = window.innerWidth * window.devicePixelRatio;
+      canvas.height = window.innerHeight * window.devicePixelRatio;
+      canvas.style.width = window.innerWidth + "px";
+      canvas.style.height = window.innerHeight + "px";
+      ctx.setTransform(window.devicePixelRatio, 0, 0, window.devicePixelRatio, 0, 0);
+    }
+
+    function pad(value) {
+      return String(value).padStart(2, "0");
+    }
+
+    function updateCountdown() {
+      const now = new Date();
+      const diff = birthday - now;
+
+      if (diff <= 0) {
+        daysEl.textContent = "00";
+        hoursEl.textContent = "00";
+        minutesEl.textContent = "00";
+        secondsEl.textContent = "00";
+        statusMessage.textContent = "Today is her day. Play the confetti and let the surprise shine.";
+        countdownCopy.textContent = "The wait is over. It is birthday time now.";
+        return;
+      }
+
+      const totalSeconds = Math.floor(diff / 1000);
+      const days = Math.floor(totalSeconds / 86400);
+      const hours = Math.floor((totalSeconds % 86400) / 3600);
+      const minutes = Math.floor((totalSeconds % 3600) / 60);
+      const seconds = totalSeconds % 60;
+
+      daysEl.textContent = pad(days);
+      hoursEl.textContent = pad(hours);
+      minutesEl.textContent = pad(minutes);
+      secondsEl.textContent = pad(seconds);
+
+      if (days === 0 && hours < 12) {
+        statusMessage.textContent = "Almost there. Tomorrow belongs to her.";
+      } else {
+        statusMessage.textContent = "Counting every second until her birthday begins.";
+      }
+    }
+
+    function launchConfetti(power = 1) {
+      const colors = ["#ff7aa8", "#ffd166", "#8be9fd", "#ffffff", "#ffb8d0"];
+      const count = Math.floor(120 * power);
+      for (let i = 0; i < count; i++) {
+        particles.push({
+          x: window.innerWidth * (0.2 + Math.random() * 0.6),
+          y: window.innerHeight * 0.15,
+          vx: (Math.random() - 0.5) * 7,
+          vy: Math.random() * -8 - 4,
+          size: 4 + Math.random() * 6,
+          color: colors[Math.floor(Math.random() * colors.length)],
+          rotation: Math.random() * Math.PI,
+          spin: (Math.random() - 0.5) * 0.2,
+          life: 90 + Math.random() * 60
+        });
+      }
+    }
+
+    function drawConfetti() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      for (let index = particles.length - 1; index >= 0; index--) {
+        const particle = particles[index];
+        particle.vy += 0.14;
+        particle.x += particle.vx;
+        particle.y += particle.vy;
+        particle.rotation += particle.spin;
+        particle.life -= 1;
+
+        ctx.save();
+        ctx.translate(particle.x, particle.y);
+        ctx.rotate(particle.rotation);
+        ctx.fillStyle = particle.color;
+        ctx.fillRect(-particle.size / 2, -particle.size / 2, particle.size, particle.size * 1.6);
+        ctx.restore();
+
+        if (particle.life <= 0 || particle.y > window.innerHeight + 40) {
+          particles.splice(index, 1);
+        }
+      }
+      requestAnimationFrame(drawConfetti);
+    }
+
+    function createSparkles() {
+      const count = 22;
+      for (let i = 0; i < count; i++) {
+        const dot = document.createElement("span");
+        dot.className = "sparkle";
+        dot.style.left = Math.random() * 100 + "%";
+        dot.style.animationDuration = 8 + Math.random() * 10 + "s";
+        dot.style.animationDelay = -(Math.random() * 12) + "s";
+        dot.style.opacity = 0.2 + Math.random() * 0.8;
+        dot.style.transform = "scale(" + (0.4 + Math.random() * 1.3) + ")";
+        sparkleLayer.appendChild(dot);
+      }
+    }
+
+    surpriseBtn.addEventListener("click", () => {
+      letter.classList.toggle("show-note");
+      launchConfetti(1.1);
+      statusMessage.textContent = letter.classList.contains("show-note")
+        ? "The hidden note is open now. Let the words do the hugging, Aditi."
+        : "The surprise is tucked back in. Open it again whenever you want.";
+    });
+
+    confettiBtn.addEventListener("click", () => {
+      launchConfetti(1.4);
+      statusMessage.textContent = "Confetti launched. Consider this the loudest cheer from a distance.";
+    });
+
+    window.addEventListener("resize", resizeCanvas);
+
+    resizeCanvas();
+    createSparkles();
+    updateCountdown();
+    drawConfetti();
+    setInterval(updateCountdown, 1000);
+
+    if (new Date() >= birthday) {
+      letter.classList.add("show-note");
+      launchConfetti(1.7);
+    }
+  </script>
+</body>
+</html>
